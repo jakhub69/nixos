@@ -2,8 +2,8 @@
 
 {
 ## Przypinam 6.19.12 zen dopóki nie wyjdzie 7.1 albo 7.2
-    nixpkgs.overlays = [
-    (final: prev: { linuxPackages_zen = pkgs.pinnedkernel.linuxPackages_zen;})];
+   # nixpkgs.overlays = [
+   # (final: prev: { linuxPackages_zen = pkgs.pinnedkernel.linuxPackages_zen;})];
 # Bootloader
   boot = {
     loader.efi.canTouchEfiVariables = true;       # Pozwól na modyfikację zmiennych EFI

@@ -10,7 +10,7 @@
     envfs.enable = true;              # Wsparcie dla envfs, wymagane do niektórych programów
     lact.enable = true;          # Dodaj menedżer zarządzania AMD, musi być też włączony hardware.amdgpu.overdrive.enable
 
-    # Wysoki priorytet gier dzięki ananicy od cachyos. Gryzie się z scx_lavd
+    # Wysoki priorytet gier dzięki ananicy od cachyos
     ananicy = {
       enable = false;
       package = pkgs.ananicy-cpp;
@@ -23,7 +23,6 @@
       scheduler = "scx_lavd";
     };
 
-    # Serwer lokalny od odtwarzania muzyki z komputera. Super lekki
     mpd = {
       enable = true;
       user = "rabbit";
@@ -46,12 +45,11 @@
       variant = "";
     };
 
-    # Reguły usb do setek padów
     udev.packages = with pkgs; [
       game-devices-udev-rules
     ];
 
-    # Zasady udev bym mógł konfigurować mysz i klawiaturę w programie, pierwsze dwie to mchose a7 v2 ultra, trzecia to akko mod 008
+    # Zasady udev bym mógł konfigurować mysz i klawiaturę w programie
     udev.extraRules = ''
     KERNEL=="hidraw*", ATTRS{idVendor}=="3837", ATTRS{idProduct}=="100b", MODE="0666", TAG+="uaccess"
     KERNEL=="hidraw*", ATTRS{idVendor}=="3837", ATTRS{idProduct}=="4019", MODE="0666", TAG+="uaccess"
@@ -89,6 +87,5 @@
     libinput.enable = false; # Wsparcie touchpadów
   };
 
-  # Do mpd
   systemd.services.mpd.environment = { XDG_RUNTIME_DIR = "/run/user/1000"; };
 }

@@ -19,31 +19,17 @@
     packageOverrides = pkgs:
     {
       nur = import (fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") { inherit pkgs; };
-      #unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.zip") { config = config.nixpkgs.config; };
-      stable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/tags/25.11.tar.gz") { config = config.nixpkgs.config; };
-      pinnedkernel = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f32b0250a690c5aceb0fbe033c896a1a1bc7ca70.tar.gz") { config = config.nixpkgs.config; };
+      unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.zip") { config = config.nixpkgs.config; };
+      #stable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/tags/25.11.tar.gz") { config = config.nixpkgs.config; };
+      #pinnedkernel = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f32b0250a690c5aceb0fbe033c896a1a1bc7ca70.tar.gz") { config = config.nixpkgs.config; };
     };
     permittedInsecurePackages = [ 
       "openssl-1.1.1w"          # sublime wymaga
     ];
   };
 
-  # Tymczasowo lutris wymaga
-  nixpkgs.overlays = [
-    (_: prev: {
-      openldap = prev.openldap.overrideAttrs {
-        doCheck = !prev.stdenv.hostPlatform.isi686;
-      };
-    })
-  ];
-
   # Automatyczne czyszczenie staroci
   nix = {
-    #gc = {
-    #  automatic = true;
-    #  dates = "daily";
-    #  options = "--delete-older-than 14d"; # Usuwaj generacje starsze niż 14 dni
-    #};
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" ];
@@ -55,6 +41,7 @@
     EDITOR = "nano";                       # Domyślny edytor tekstu w terminalu
     GTK_USE_PORTAL = 1;                    # Wymuś użycie portali XDG w programach GTK, by np. program używał systemowego file pickera
     OBS_VKCAPTURE_QUIET = 1;               # Wyłącz zbędne logi z vk capture do OBS Studio
+    MESA_SHADER_CACHE_MAX_SIZE="12G";
   };
 
   security.sudo.wheelNeedsPassword = false; # Użytkownicy w grupie wheel nie muszą pisać hasła do sudo
@@ -127,7 +114,6 @@
         nix-rep = "sudo nix-channel --repair";     # naprawienie kanałów nixos
         nix-up = "tldr --update && flatpak update -y && sudo journalctl --vacuum-time=2d && nix-ref && nix-boot && nh clean all --keep 4"; # aktualizacja systemu po restarcie
         nix-live = "tldr --update && flatpak update -y && sudo journalctl --vacuum-time=2d && nix-ref && nix-switch && nh clean all --keep 4"; # aktualizacja systemu na żywo
-        pbot = "/home/rabbit/Dokumenty/STREAM/PhantomBot/launch.sh"; # uruchomienie bota do streamu
         errors = "sudo journalctl --vacuum-time=2d && journalctl -p 3"; # pokaż błędy z dziennika systemowego
         zero = "sudo zerotier-cli";             # skrót do zarządzania ZeroTier
         zero-fix = "sudo route add -host 255.255.255.255 dev ztks575eoa && route -n && sudo zerotier-cli status"; # naprawa server browser LAN w grach
@@ -153,10 +139,10 @@
 
   # Wersja na której zainstalowałeś nixos.
   # By dokonać dużej aktualizacji, wpisz w terminal.
-  # sudo nix-channel --add https://channels.nixos.org/nixos-25.11 nixos
-  # 25.11 zastąp nową wersją
+  # sudo nix-channel --add https://channels.nixos.org/nixos-26.05 nixos
+  # 26.05 zastąp nową wersją
   # Zmiana stateVersion poniżej spowoduje że config może być niekompatybilny i będzie wymagać manualnej interwencji.
   # Nie musisz zmieniać stateVersion by zaktualizować Nixos!
   # Jeżeli będziesz po latach instalować NixOS z tym configiem, to pamiętaj by zmienić stateVersion zgodnie z wersją iso której użyłeś
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
 }

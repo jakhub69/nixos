@@ -43,7 +43,7 @@
   protonplus                            # Aktualizacje proton-ge
   winetricks                            # Do instalacji bibliotek w wine
   lutris                                # Najnowszy lutris
-  heroic                                # Najnowszy Heroic Games Launcher
+  unstable.heroic                       # Najnowszy Heroic Games Launcher
   faugus-launcher                       # Faugus Launcher
   gale                                  # Mod Manager dla wielu gier indie(Thunderstore)
   wayvr                                 # Dashboard VR
@@ -61,17 +61,16 @@
   urbanterror                           # Urban Terror
 
   ## Emulacja
-  xenia-canary                          # Xbox 360
+  unstable.xenia-canary                 # Xbox 360
   mame                                  # Arcade
   
   ## Komunikacja
-  (discord.override { withOpenASAR = true; withVencord = false; }) # Discord z vencord i openasar
+  (discord.override { withOpenASAR = true; withVencord = true; }) # Discord z vencord i openasar
   discord-rpc                           # Rich presence
   caprine                               # Messenger
 
   ## Programowanie + biblioteki do kdenlive AI
-  stable.github-desktop                        # GitHub
-  flatpak-builder                       # Do tworzenia flatpaków
+  github-desktop                        # GitHub
   vscode-fhs                            # Programowanie
   hugo                                  # Do strony internetowej
   dotnet-sdk                            # .NET SDK do kompilacji modów CS2
