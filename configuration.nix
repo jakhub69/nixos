@@ -20,7 +20,7 @@
     {
       nur = import (fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") { inherit pkgs; };
       unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.zip") { config = config.nixpkgs.config; };
-      #stable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/tags/25.11.tar.gz") { config = config.nixpkgs.config; };
+      stable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/tags/25.11.tar.gz") { config = config.nixpkgs.config; };
       #pinnedkernel = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f32b0250a690c5aceb0fbe033c896a1a1bc7ca70.tar.gz") { config = config.nixpkgs.config; };
     };
     permittedInsecurePackages = [ 
@@ -41,7 +41,7 @@
     EDITOR = "nano";                       # Domyślny edytor tekstu w terminalu
     GTK_USE_PORTAL = 1;                    # Wymuś użycie portali XDG w programach GTK, by np. program używał systemowego file pickera
     OBS_VKCAPTURE_QUIET = 1;               # Wyłącz zbędne logi z vk capture do OBS Studio
-    MESA_SHADER_CACHE_MAX_SIZE="12G";
+    MESA_SHADER_CACHE_MAX_SIZE="24G";
   };
 
   security.sudo.wheelNeedsPassword = false; # Użytkownicy w grupie wheel nie muszą pisać hasła do sudo
@@ -76,7 +76,7 @@
 
   xdg.terminal-exec = {
     enable = true;
-    settings.default = ["kitty.desktop"]; # Ustaw konsole jako domyślny terminal
+    settings.default = ["kitty.desktop"]; # Ustaw kitty jako domyślny terminal
   };
 
   # Wbudowane w nixos moduły programów i ich opcje. Programy użytkowe są w programs.nix
@@ -117,9 +117,6 @@
         errors = "sudo journalctl --vacuum-time=2d && journalctl -p 3"; # pokaż błędy z dziennika systemowego
         zero = "sudo zerotier-cli";             # skrót do zarządzania ZeroTier
         zero-fix = "sudo route add -host 255.255.255.255 dev ztks575eoa && route -n && sudo zerotier-cli status"; # naprawa server browser LAN w grach
-        rabbisnaz="cd /home/rabbit/Dokumenty/Github/snaz-like/ && nix-shell --run 'python3 main.py' shell.nix";
-        rbot="cd /home/rabbit/Dokumenty/Github/rabbibot/ && nix-shell --run 'python3 main.py' shell.nix";
-        algorytm="cd /home/rabbit/Dokumenty/Github/powaznaliga-algorytm/ && nix-shell --run 'python3 main.py' shell.nix";
         lowercase="find . -depth | while read -r f; do mv \"$f\" \"\$(dirname \"$f\")/\$(basename \"$f\" | tr 'A-Z' 'a-z')\"; done";
       };
       histSize = 30000; # Rozmiar historii

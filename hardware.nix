@@ -3,7 +3,7 @@
 {
 # Sprzęt
   hardware = {
-    #xpadneo.enable = true;            # Włącz sterownik xinput
+    #xpadneo.enable = true;            # Włącz wsparcie bluetooth do padów xboxowych
     #xone.enable = true;              # Włącz wsparcie xboxowego dongla usb, nie można łączyć z xpadneo
     steam-hardware.enable = true;     # Włącz wsparcie dla kontrolerów steamowych + Valve index
 
@@ -22,7 +22,7 @@
       powerOnBoot = true;
     };
 
-    uinput.enable = true;
+    uinput.enable = true;             # Włącza tworzenie wirtualnych urządzeń, użyteczne do makro
   };
 
   # Dodaj wsparcie podpinania pendrive (LOL)
@@ -41,7 +41,7 @@
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
     docker.enable = false;
-    podman.enable = true; # Do distrobox
-    podman.dockerCompat = true;
+    podman.enable = false; # Do distrobox
+    podman.dockerCompat = false;
   };
 }

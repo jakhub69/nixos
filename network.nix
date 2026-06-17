@@ -14,8 +14,8 @@
   };
   systemd.services.NetworkManager-wait-online.enable = false; # Nie czekaj na internet by uruchomić system
 
-  #services.zerotierone = {
-    #enable = true;
-    #joinNetworks = [""];
-   # };
+  services.zerotierone = {
+    enable = false;
+    joinNetworks = [""];
+    };
 }

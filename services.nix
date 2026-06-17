@@ -10,7 +10,7 @@
     envfs.enable = true;              # Wsparcie dla envfs, wymagane do niektórych programów
     lact.enable = true;          # Dodaj menedżer zarządzania AMD, musi być też włączony hardware.amdgpu.overdrive.enable
 
-    # Wysoki priorytet gier dzięki ananicy od cachyos
+    # Wysoki priorytet gier dzięki ananicy od cachyos. Gryzie się z scx_lavd
     ananicy = {
       enable = false;
       package = pkgs.ananicy-cpp;
@@ -23,6 +23,7 @@
       scheduler = "scx_lavd";
     };
 
+    # Serwer lokalny od odtwarzania muzyki z komputera. Super lekki
     mpd = {
       enable = true;
       user = "rabbit";
@@ -49,7 +50,7 @@
       game-devices-udev-rules
     ];
 
-    # Zasady udev bym mógł konfigurować mysz i klawiaturę w programie
+    # Zasady udev bym mógł konfigurować mysz i klawiaturę w programie, pierwsze dwie to mchose a7 v2 ultra, trzecia to akko mod 008
     udev.extraRules = ''
     KERNEL=="hidraw*", ATTRS{idVendor}=="3837", ATTRS{idProduct}=="100b", MODE="0666", TAG+="uaccess"
     KERNEL=="hidraw*", ATTRS{idVendor}=="3837", ATTRS{idProduct}=="4019", MODE="0666", TAG+="uaccess"
@@ -78,7 +79,7 @@
       sddm.wayland.enable = true; # Włącz SDDM w trybie Wayland
       autoLogin.user = "rabbit";  # Użytkownik do automatycznego logowania
       autoLogin.enable = true;    # Włącz automatyczne logowanie
-      defaultSession = "plasma";  # Plasma-wayland jako default
+      defaultSession = "plasma";  # Plasma-wayland jako default lub plasmax11 dla x11
     };
     desktopManager.plasma6.enable = true; # Plasma 6
 
@@ -87,5 +88,6 @@
     libinput.enable = false; # Wsparcie touchpadów
   };
 
+  # Do MPD by użytkownik miał prawa
   systemd.services.mpd.environment = { XDG_RUNTIME_DIR = "/run/user/1000"; };
 }

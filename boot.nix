@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
-## Przypinam 6.19.12 zen dopóki nie wyjdzie 7.1 albo 7.2
-   # nixpkgs.overlays = [
+## Przypinanie jądra na konkretną wersję
+    #nixpkgs.overlays = [
    # (final: prev: { linuxPackages_zen = pkgs.pinnedkernel.linuxPackages_zen;})];
 # Bootloader
   boot = {
@@ -20,17 +20,9 @@
     };
     tmp.cleanOnBoot = true;                       # Czyszczenie TMP przy ładowaniu systemu
     kernelPackages = pkgs.linuxPackages_zen;   # Jądro systemu https://nixos.wiki/wiki/Linux_kernel
-    extraModulePackages = with config.boot.kernelPackages; [ vhba ]; # Dodatkowe moduły/sterowniki jądra
-    kernelModules = ["vhba"];
-    kernelParams = [ "nohibernate" "usbcore.autosuspend=-1" "mitigations=off" "nmi_watchdog=0" "nowatchdog" "transparent_hugepage=never" "audit=0" "split_lock_detect=off" "preempt=full" "loglevel=2" ]; # Parametry jądra
-    kernelPatches = [{
-      name = "amdgpu-ignore-ctx-privileges";
-      patch = pkgs.fetchpatch {
-        name = "cap_sys_nice_begone.patch";
-        url = "https://github.com/Frogging-Family/community-patches/raw/master/linux61-tkg/cap_sys_nice_begone.mypatch";
-        hash = "sha256-Y3a0+x2xvHsfLax/uwycdJf3xLxvVfkfDVqjkxNaYEo=";
-      };
-    }];
+    #extraModulePackages = with config.boot.kernelPackages; [ vhba ntsync ]; # Dodatkowe moduły/sterowniki jądra
+    kernelModules = ["vhba" "ntsync"];
+    kernelParams = [ "nohibernate" "usbcore.autosuspend=-1" "mitigations=off" "loglevel=2" ]; # Parametry jądra
     kernel.sysctl = {
       "kernel.split_lock_mitigate" = 0;           # Wyłącza split_lock, rekomendowane do gier
       "vm.max_map_count" = 2147483642;            # Jak w SteamOS, niemal maksymalny możliwy map_count
@@ -46,7 +38,7 @@
       "vm.dirty_writeback_centisecs" = 1500;
       "vm.min_free_kbytes" = 59030;
     };
-    supportedFilesystems = ["exfat" "btrfs"];
+    supportedFilesystems = ["exfat" "btrfs" "ntfs"];
   };
 
   # Szybsze zamykanie systemu

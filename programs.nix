@@ -30,6 +30,7 @@
   #kontainer                            # GUI do Distroboxa
 
   ## KDE Plazma
+  kdePackages.qtwebengine               # Do wtyczki pogodowej
   kdePackages.kdenlive                  # Do Edycji wideo
   klassy                                # Dekoracje okien Klassy
   avidemux                              # Przycinanie filmów
@@ -43,7 +44,7 @@
   protonplus                            # Aktualizacje proton-ge
   winetricks                            # Do instalacji bibliotek w wine
   lutris                                # Najnowszy lutris
-  unstable.heroic                       # Najnowszy Heroic Games Launcher
+  heroic                                # Najnowszy Heroic Games Launcher
   faugus-launcher                       # Faugus Launcher
   gale                                  # Mod Manager dla wielu gier indie(Thunderstore)
   wayvr                                 # Dashboard VR
@@ -70,13 +71,13 @@
   caprine                               # Messenger
 
   ## Programowanie + biblioteki do kdenlive AI
-  github-desktop                        # GitHub
+  stable.github-desktop                 # GitHub
   vscode-fhs                            # Programowanie
+  opencode
   hugo                                  # Do strony internetowej
-  dotnet-sdk                            # .NET SDK do kompilacji modów CS2
-  dotnet-runtime
-  dotnet-aspnetcore
-  gtk3
+  dotnet-sdk_10                         # .NET SDK do kompilacji modów CS2
+  dotnet-runtime_10
+  dotnet-aspnetcore_10
   (python3.withPackages (python-pkgs: with python-pkgs; [ # Do kdenlive AI
         pip
         openai-whisper
@@ -117,7 +118,7 @@ programs = {
 
     gamescope = {
       enable = true;                      # Dodaj/usuń Gamescope
-      capSysNice = false;                 # Zezwól na wysoki priorytet
+      capSysNice = true;                 # Zezwól na wysoki priorytet
     };
 
     obs-studio = {
@@ -132,6 +133,7 @@ programs = {
         obs-text-pthread
         obs-retro-effects
         obs-stroke-glow-shadow
+        obs-markdown
         ];
     };
 };
