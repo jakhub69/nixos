@@ -5,18 +5,10 @@
   environment.systemPackages = with pkgs; [
   
   ## System
-  nur.repos.novel2430.zen-browser-bin   # Przeglądarka
-  hunspell                              # Sprawdzanie pisowni
-  hunspellDicts.pl-pl                   # Polski słownik
-  hunspellDicts.en_US                   # Angielski słownik
-  sublime4                              # Najlepszy edytor tekstu
   papirus-icon-theme                    # Ikony systemowe
-  poedit                                # Program do tłumaczeń
   qdirstat                              # Analiza dysków
-  tealdeer                              # tldr w konsoli
   fastfetch                             # Informacje o systemie w terminalu
   gparted                               # Partycjonowanie dysków
-  qpwgraph                              # Wizualny edytor połączeń dźwiękowych
   qbittorrent                           # Klient do torrentów
   google-fonts                          # Paczka czcionek od Google Fonts
   unrar                                 # Wypakowywanie archiwów .rar
@@ -26,70 +18,50 @@
   btrfs-assistant                       # Asystent dysków btrfs
   alsa-utils                            # alsamixer czasem się przydaje
   waydroid-helper                      # Pomocnik zarządzania waydroidem
-  #distrobox                            # Kontenery dystrybucji
-  #kontainer                            # GUI do Distroboxa
+  distrobox                            # Kontenery dystrybucji
+  kontainer                            # GUI do Distroboxa
+  google-chrome
+  spotify
+  youtube-music
+  upscayl
+  htop
+  ncdu
+  nload
+  yt-dlp
+  ffmpeg
+  headsetcontrol
+  wget
+  inxi
+  pciutils
+  lm_sensors
+  localsend
 
   ## KDE Plazma
-  kdePackages.qtwebengine               # Do wtyczki pogodowej
+  kdePackages.kate                      # Edytor tekstu
   kdePackages.kdenlive                  # Do Edycji wideo
-  klassy                                # Dekoracje okien Klassy
   avidemux                              # Przycinanie filmów
   haruna                                # Oglądanie filmów
-  cantata                               # Klient do słuchania muzyki z MPD
-  kid3-kde                              # Program do tagowania muzyki
+  kdePackages.filelight
+
 
   ## Narzędzia do gier
-  sidequest
   mangohud                              # FPSY, temperatury
   protonplus                            # Aktualizacje proton-ge
   winetricks                            # Do instalacji bibliotek w wine
   lutris                                # Najnowszy lutris
   heroic                                # Najnowszy Heroic Games Launcher
-  faugus-launcher                       # Faugus Launcher
-  gale                                  # Mod Manager dla wielu gier indie(Thunderstore)
-  wayvr                                 # Dashboard VR
-  hydralauncher                         # Do gier z zatoki
-
-  ## Twitch/Youtube
-  (cameractrls.override {withGtk = 3;}) # Zarządzanie kamerą
-  chatterino2                           # Czytam chat
-  #easyeffects                           # Efekty mikrofonu/słuchawek
-  #scrcpy                               # Przechwyć obraz z telefonu
-  sqlitebrowser                         # Przeglądaj bazę sqlite
+  goverlay                              # GOverlay
 
   ## Gry
-  bs-manager                            # Beat Saber Launcher
-  urbanterror                           # Urban Terror
-
-  ## Emulacja
-  unstable.xenia-canary                 # Xbox 360
-  mame                                  # Arcade
+  prismlauncher                         # Beat Saber Launcher
   
   ## Komunikacja
   (discord.override { withOpenASAR = true; withVencord = true; }) # Discord z vencord i openasar
   discord-rpc                           # Rich presence
-  caprine                               # Messenger
 
-  ## Programowanie + biblioteki do kdenlive AI
+  ## Programowanie
   stable.github-desktop                 # GitHub
-  vscode-fhs                            # Programowanie
-  opencode
-  hugo                                  # Do strony internetowej
-  dotnet-sdk_10                         # .NET SDK do kompilacji modów CS2
-  dotnet-runtime_10
-  dotnet-aspnetcore_10
-  (python3.withPackages (python-pkgs: with python-pkgs; [ # Do kdenlive AI
-        pip
-        openai-whisper
-        srt
-        torch
-        torchvision
-        pillow
-        hydra-core
-        iopath
-        #sam2
-        opencv4
-      ]))
+  filezilla
 ];
 
 environment.plasma6.excludePackages = with pkgs.kdePackages; [ #Usuwanie zbędnych aplikacji domyślnych z plazmy
@@ -102,11 +74,7 @@ environment.variables = rec { # Naprawia integracje systemu z GTK (Np Zen browse
   }; 
 
 programs = {
-    kdeconnect.enable = true;           # Dodaj KDE Connect
-    firefox.enable = false;             # Wyłącz Instalację Firefox
-    thunderbird.enable = true;          # Dodaj mozilla thunderbird
-    direnv.enable = true;               # Do programowania w vscode
-    direnv.nix-direnv.enable = true;           # Lepszy direnv do cachowania paczek w shellu
+    firefox.enable = true;             # Włącz Instalację Firefox
     steam = { 
       enable = true;                                  # Włącz steam
       protontricks.enable = true;                     # dodaj protontricks

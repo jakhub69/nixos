@@ -44,18 +44,18 @@
     MESA_SHADER_CACHE_MAX_SIZE="24G";
   };
 
-  security.sudo.wheelNeedsPassword = false; # Użytkownicy w grupie wheel nie muszą pisać hasła do sudo
+  security.sudo.wheelNeedsPassword = true; # Użytkownicy w grupie wheel nie muszą pisać hasła do sudo
 
   # Konto użytkownika. Zmień rabbit na własny nick podany w instalacji. Zmień rabbit również w pliku services.nix, zakładka Displaymanager
-  users.users.rabbit = {
+  users.users.jakub = {
     isNormalUser = true;
-    description = "rabbit";
+    description = "Jakub";
     extraGroups = [ "networkmanager" "wheel" "docker" "users" ];
     #packages = with pkgs; [ # Programy tylko dla użytkownika
     #];
   };
   users.defaultUserShell = pkgs.zsh;        # Ustaw zsh domyślnie dla wszystkich
-  users.groups.libvirtd.members = ["rabbit"]; # Dodaj mnie do wirtualizacji
+  users.groups.libvirtd.members = ["jakub"]; # Dodaj mnie do wirtualizacji
 
   # Włącz wsparcie Flatpak, portal XDG oraz dodaj Flathub
   services.flatpak.enable = true;

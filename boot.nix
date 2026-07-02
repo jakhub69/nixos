@@ -15,14 +15,14 @@
       extraEntries = ''
         /Windows
           protocol: efi
-          path: uuid(9b4c23ad-8c11-4ace-a1f5-0bc00d75acc5):/EFI/Microsoft/Boot/bootmgfw.efi
+          path: uuid(8336188e-f77c-45ff-a96d-f80b8719404f):/EFI/Microsoft/Boot/bootmgfw.efi
       '';
     };
     tmp.cleanOnBoot = true;                       # Czyszczenie TMP przy ładowaniu systemu
     kernelPackages = pkgs.linuxPackages_zen;   # Jądro systemu https://nixos.wiki/wiki/Linux_kernel
     #extraModulePackages = with config.boot.kernelPackages; [ vhba ntsync ]; # Dodatkowe moduły/sterowniki jądra
     kernelModules = ["vhba" "ntsync"];
-    kernelParams = [ "nohibernate" "usbcore.autosuspend=-1" "mitigations=off" "loglevel=2" ]; # Parametry jądra
+    kernelParams = [ "nohibernate" "usbcore.autosuspend=-1" "mitigations=off" "loglevel=2" "nvidia-drm.modeset=1" ]; # Parametry jądra
     kernel.sysctl = {
       "kernel.split_lock_mitigate" = 0;           # Wyłącza split_lock, rekomendowane do gier
       "vm.max_map_count" = 2147483642;            # Jak w SteamOS, niemal maksymalny możliwy map_count
