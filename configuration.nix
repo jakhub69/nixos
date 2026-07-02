@@ -4,7 +4,6 @@
     [ # Inne configi do zaimportowania
       ./hardware-configuration.nix
       ./services.nix
-      ./vr.nix
       ./programs.nix
       ./boot.nix
       ./hardware.nix
