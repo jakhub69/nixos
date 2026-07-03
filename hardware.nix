@@ -3,9 +3,6 @@
 {
 # Sprzęt
   hardware = {
-    xpadneo.enable = true;            # Włącz wsparcie bluetooth do padów xboxowych
-    xone.enable = true;              # Włącz wsparcie xboxowego dongla usb, nie można łączyć z xpadneo
-    steam-hardware.enable = true;     # Włącz wsparcie dla kontrolerów steamowych + Valve index
 
     #amdgpu = {
     #  opencl.enable = true;      # Włącz OpenCL dla AMD GPU
@@ -24,11 +21,6 @@
     graphics = {
         enable = true;                # Aktywuj akcelerację w aplikacjach 64 bitowych
         enable32Bit = true;           # Aktywuj akcelerację w aplikacjach 32 bitowych
-    };
-
-    bluetooth = { # Ja nie mam bluetooth, to po co włączać
-      enable = false;
-      powerOnBoot = true;
     };
 
     uinput.enable = true;             # Włącza tworzenie wirtualnych urządzeń, użyteczne do makro

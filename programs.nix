@@ -14,7 +14,6 @@
   unrar                                 # Wypakowywanie archiwów .rar
   p7zip                                 # Wypakowywanie archiwów .7z
   gearlever                             # Pomocnik plików appimage
-  kitty                                 # Terminal ze wsparciem GPU
   btrfs-assistant                       # Asystent dysków btrfs
   alsa-utils                            # alsamixer czasem się przydaje
   waydroid-helper                      # Pomocnik zarządzania waydroidem

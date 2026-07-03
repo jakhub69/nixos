@@ -73,19 +73,8 @@
     xdgOpenUsePortal = true;
   };
 
-  xdg.terminal-exec = {
-    enable = true;
-    settings.default = ["kitty.desktop"]; # Ustaw kitty jako domyślny terminal
-  };
-
   # Wbudowane w nixos moduły programów i ich opcje. Programy użytkowe są w programs.nix
   programs = {
-
-    cdemu = {  # Włącz wsparcie płyt i ich montowania
-      enable = true;
-      gui = true;
-      group = "wheel";
-    };
 
     nix-ld.enable = true; # Pozwala ładować statyczne bibloteki. Użyteczne jak ściągasz gotowe linuxowe gry i programy.
 

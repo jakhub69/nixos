@@ -5,57 +5,44 @@
     #nixpkgs.overlays = [
    # (final: prev: { linuxPackages_zen = pkgs.pinnedkernel.linuxPackages_zen;})];
 # Bootloader
-  boot = {
-    loader.efi.canTouchEfiVariables = true;       # Pozwól na modyfikację zmiennych EFI
-    loader.limine = {
-      enable = true;            # Użyj Limine
-      efiSupport = true;
-      style.wallpapers = [pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath];
-      extraConfig = "timeout:2";
-      extraEntries = ''
-        /Windows
-          protocol: efi
-          path: uuid(8336188e-f77c-45ff-a96d-f80b8719404f):/EFI/Microsoft/Boot/bootmgfw.efi
-      '';
-    };
-    tmp.cleanOnBoot = true;                       # Czyszczenie TMP przy ładowaniu systemu
-    kernelPackages = pkgs.linuxPackages_zen;   # Jądro systemu https://nixos.wiki/wiki/Linux_kernel
-    #extraModulePackages = with config.boot.kernelPackages; [ vhba ntsync ]; # Dodatkowe moduły/sterowniki jądra
-    kernelModules = ["vhba" "ntsync"];
-    kernelParams = [ "nohibernate" "usbcore.autosuspend=-1" "mitigations=off" "loglevel=2" "nvidia-drm.modeset=1" ]; # Parametry jądra
-    kernel.sysctl = {
-      "kernel.split_lock_mitigate" = 0;           # Wyłącza split_lock, rekomendowane do gier
-      "vm.max_map_count" = 2147483642;            # Jak w SteamOS, niemal maksymalny możliwy map_count
-      "vm.swappiness" = 10;                       # Procent aktywnego ruszania w swapie
-      "vm.vfs_cache_pressure" = 50;               # Mniej agresywne czyszczenie cache
-      "kernel.sched_cfs_bandwidth_slice_us" = 3000; # Krótszy czas przydzielania CPU na proces
-      "net.ipv4.tcp_fin_timeout" = 5;               # Szybsze zamykanie połączeń TCP
-      "vm.dirty_ratio" = 3;                       # To oraz opcje niżej przyspieszają kopiowanie na pendrive
-      "vm.dirty_bytes" = 50331648; 
-      "vm.dirty_background_bytes" = 16777216;
-      "vm.dirty_background_ratio" = 2;
-      "vm.dirty_expire_centisecs" = 3000;
-      "vm.dirty_writeback_centisecs" = 1500;
-      "vm.min_free_kbytes" = 59030;
-    };
-    supportedFilesystems = ["exfat" "btrfs" "ntfs"];
-  };
+boot = {
+  loader.efi.canTouchEfiVariables = true;      # Pozwól na modyfikację zmiennych EFI
+  loader.systemd-boot.enable = true;           # Użyj standardowego systemd-boot zamiast Limine
+  loader.systemd-boot.configurationLimit = 10; # Opcjonalnie: trzymaj max 10 generacji w menu startowym
 
-  # Szybsze zamykanie systemu
-  systemd.settings.Manager = {
-    DefaultTimeoutStopSec = "12s";
-  };
+  tmp.cleanOnBoot = true;                      # Czyszczenie TMP przy ładowaniu systemu
+  kernelPackages = pkgs.linuxPackages_zen;     # Jądro systemu
+  kernelModules = ["vhba" "ntsync"];
+  kernelParams = [ "nohibernate" "usbcore.autosuspend=-1" "mitigations=off" "loglevel=2" "nvidia-drm.modeset=1" ]; 
+  kernel.sysctl = {
+    "kernel.split_lock_mitigate" = 0;
+    "vm.max_map_count" = 2147483642;
+    "vm.swappiness" = 10;
+    "vm.vfs_cache_pressure" = 50;
+    "kernel.sched_cfs_bandwidth_slice_us" = 3000;
+    "net.ipv4.tcp_fin_timeout" = 5;
+    "vm.dirty_ratio" = 3;
+    "vm.dirty_bytes" = 50331648;  
+    "vm.dirty_background_bytes" = 16777216;
+    "vm.dirty_background_ratio" = 2;
+    "vm.dirty_expire_centisecs" = 3000;
+    "vm.dirty_writeback_centisecs" = 1500;
+    "vm.min_free_kbytes" = 59030;
+  }; # <--- Tutaj kończy się kernel.sysctl i jest średnik
 
-  # Optymalizacja RAM
-  zramSwap = {
-    enable = true;
-    algorithm = "lz4";
-  };
+  supportedFilesystems = ["exfat" "btrfs" "ntfs"];
+}; # <--- TUTAJ kończy się cała sekcja boot. Zwróć uwagę na średnik PO nawiasie klamrowym.
 
-  # Profil zasilania CPU
-  powerManagement = {
-        enable = true;
-        powertop.enable = true;
-        cpuFreqGovernor = "performance"; #power, performance, ondemand
-  };
-}
+# Szybsze zamykanie systemu
+systemd.settings.Manager = {
+  DefaultTimeoutStopSec = "12s";
+};
+
+# Profil zasilania CPU
+powerManagement = {
+     enable = true;
+     powertop.enable = true;
+     cpuFreqGovernor = "performance"; 
+};
+
+} # <--- Ten nawias na samym dole zamyka cały plik (ten z pierwszej linijki `{ config, ... }:` )
