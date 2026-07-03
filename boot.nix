@@ -1,9 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-## Przypinanie jądra na konkretną wersję
-    #nixpkgs.overlays = [
-   # (final: prev: { linuxPackages_zen = pkgs.pinnedkernel.linuxPackages_zen;})];
 # Bootloader
 boot = {
   loader.efi.canTouchEfiVariables = true;      # Pozwól na modyfikację zmiennych EFI
@@ -13,7 +10,7 @@ boot = {
   tmp.cleanOnBoot = true;                      # Czyszczenie TMP przy ładowaniu systemu
   kernelPackages = pkgs.linuxPackages_zen;     # Jądro systemu
   kernelModules = ["vhba" "ntsync"];
-  kernelParams = [ "nohibernate" "usbcore.autosuspend=-1" "mitigations=off" "loglevel=2" "nvidia-drm.modeset=1" ]; 
+  kernelParams = [ "nohibernate" "usbcore.autosuspend=-1" "mitigations=off" "loglevel=2" "nvidia-drm.modeset=1" ];
   kernel.sysctl = {
     "kernel.split_lock_mitigate" = 0;
     "vm.max_map_count" = 2147483642;
@@ -22,16 +19,16 @@ boot = {
     "kernel.sched_cfs_bandwidth_slice_us" = 3000;
     "net.ipv4.tcp_fin_timeout" = 5;
     "vm.dirty_ratio" = 3;
-    "vm.dirty_bytes" = 50331648;  
+    "vm.dirty_bytes" = 50331648;
     "vm.dirty_background_bytes" = 16777216;
     "vm.dirty_background_ratio" = 2;
     "vm.dirty_expire_centisecs" = 3000;
     "vm.dirty_writeback_centisecs" = 1500;
     "vm.min_free_kbytes" = 59030;
-  }; # <--- Tutaj kończy się kernel.sysctl i jest średnik
+  };
 
   supportedFilesystems = ["exfat" "btrfs" "ntfs"];
-}; # <--- TUTAJ kończy się cała sekcja boot. Zwróć uwagę na średnik PO nawiasie klamrowym.
+};
 
 # Szybsze zamykanie systemu
 systemd.settings.Manager = {
@@ -45,4 +42,4 @@ powerManagement = {
      cpuFreqGovernor = "performance"; 
 };
 
-} # <--- Ten nawias na samym dole zamyka cały plik (ten z pierwszej linijki `{ config, ... }:` )
+}

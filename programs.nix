@@ -52,7 +52,7 @@
   goverlay                              # GOverlay
 
   ## Gry
-  prismlauncher                         # Beat Saber Launcher
+  prismlauncher
   
   ## Komunikacja
   (discord.override { withOpenASAR = true; withVencord = true; }) # Discord z vencord i openasar

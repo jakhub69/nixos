@@ -26,7 +26,6 @@
     uinput.enable = true;             # Włącza tworzenie wirtualnych urządzeń, użyteczne do makro
   };
 
-  # Dodaj wsparcie podpinania pendrive (LOL)
   services = {
     xserver.videoDrivers = [ "nvidia" ]; # Wymuś ładowanie sterownika NVIDIA w systemie
     udisks2 = {

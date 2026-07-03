@@ -2,7 +2,6 @@
 {
 # Usługi
   services = {
-    swapspace.enable = true;      # Dynamicznie powiększa i pomniejsza swap gdy jest potrzeba
     xserver.enable = false;       # Włącz sesję X11. Wyłącz by zostawić tylko Wayland
     passSecretService.package = pkgs.libsecret; # Wsparcie dla menedżera haseł, wymagane do niektórych programów
     passSecretService.enable = true;  # Włącz wsparcie dla menedżera haseł

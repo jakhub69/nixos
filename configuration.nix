@@ -20,11 +20,7 @@
       nur = import (fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") { inherit pkgs; };
       unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.zip") { config = config.nixpkgs.config; };
       stable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/tags/25.11.tar.gz") { config = config.nixpkgs.config; };
-      #pinnedkernel = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f32b0250a690c5aceb0fbe033c896a1a1bc7ca70.tar.gz") { config = config.nixpkgs.config; };
     };
-    permittedInsecurePackages = [ 
-      "openssl-1.1.1w"          # sublime wymaga
-    ];
   };
 
   # Automatyczne czyszczenie staroci
@@ -45,7 +41,7 @@
 
   security.sudo.wheelNeedsPassword = true; # Użytkownicy w grupie wheel nie muszą pisać hasła do sudo
 
-  # Konto użytkownika. Zmień rabbit na własny nick podany w instalacji. Zmień rabbit również w pliku services.nix, zakładka Displaymanager
+  # Konto użytkownika
   users.users.jakub = {
     isNormalUser = true;
     description = "Jakub";
